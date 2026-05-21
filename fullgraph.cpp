@@ -1,5 +1,5 @@
 // g++ -std=c++17 -o fullgraph fullgraph.cpp && ./fullgraph
-// Code by U. on 22/05/2026
+// Code by U. on 21/05/2026
 //
 // Extended graph curriculum — same manual GraphNode/Edge style as graph.cpp,
 // plus connectivity, shortest path, cycle/bipartite checks, and grid BFS/DFS.
