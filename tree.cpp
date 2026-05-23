@@ -3,7 +3,7 @@
 //
 // Binary search tree — raw TreeNode pointers, std::queue for BFS only.
 #include <iostream>
-#include <queue>
+#include <queue>   // for BFS
 
 // TreeNode: value plus left/right child pointers (nullptr if absent).
 struct TreeNode {
@@ -20,7 +20,7 @@ struct TreeNode {
 
 // 1. INSERT
 // Recursive BST insert — smaller goes left, greater-or-equal goes right.
-void insert(TreeNode*& root, int val) {
+void insert(TreeNode* root, int val) {
     if (root == nullptr) {
         root = new TreeNode(val);
         return;

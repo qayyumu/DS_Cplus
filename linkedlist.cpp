@@ -17,16 +17,9 @@ struct Node {
 };
 
 // 1. CREATE / INSERT
-// Inserts a new node at the front of the list (O(1) time).
-// Note: head is passed by value — use Node*& to update the caller's head.
-void insertAtHead(Node* head, int val) {
-    Node* newNode = new Node(val);
-    newNode->next = head;
-    head = newNode;
-}
 
 // Inserts a new node at the end of the list (O(N) time without a tail pointer)
-void insertAtTail(Node* head, int val) {
+void insertAtTail(Node*& head, int val) {
     Node* newNode = new Node(val);
     if (head == nullptr) {
         head = newNode;
@@ -39,12 +32,22 @@ void insertAtTail(Node* head, int val) {
     temp->next = newNode;
 }
 
+// Inserts a new node at the front of the list (O(1) time).
+// Note: head is passed by value — use Node*& to update the caller's head.
+void insertAtHead(Node*& head, int val) {
+    Node* newNode = new Node(val);
+    newNode->next = head;
+    head = newNode;
+}
+
+
 // 2. READ / PRINT & SEARCH
 // Prints the entire list
 void printPointerList(Node* head) {
-    while (head != nullptr) {
-        std::cout << head->data << " -> ";
-        head = head->next;
+    Node* temp = head;
+    while (temp != nullptr) {
+        std::cout << temp->data << " -> ";
+        temp = temp->next;
     }
     std::cout << "NULL\n";
 }
@@ -61,19 +64,23 @@ bool searchNode(Node* head, int target) {
 
 // 3. DELETE
 // Deletes the first occurrence of a value (O(N) time)
-void deleteNode(Node* head, int val) {
-    if (head == nullptr) return;
+void deleteNode(Node*& head, int val) {
+    if (head == nullptr) {
+        std::cout << "Nothing to delete, the list is empty.\n";
+        return;
+    }
 
     // Case 1: The node to delete is the head node
     if (head->data == val) {
         Node* temp = head;
         head = head->next;
         delete temp;
+        std::cout << "Deleted " << val << " from the head.\n";
         return;
     }
 
-    // Case 2: The node is somewhere in the middle or end
     Node* current = head;
+    // Case 2: The node is somewhere in the middle or end
     while (current->next != nullptr && current->next->data != val) {
         current = current->next;
     }
@@ -83,9 +90,11 @@ void deleteNode(Node* head, int val) {
         Node* temp = current->next;
         current->next = current->next->next;
         delete temp;
+        std::cout << "Deleted " << val << " from the list.\n";
+    } else {
+        std::cout << "Value " << val << " not found in the list.\n";
     }
 }
-
 // 4. MEMORY MANAGEMENT
 // Safely deletes all nodes to prevent memory leaks
 void freeList(Node* head) {
@@ -96,35 +105,106 @@ void freeList(Node* head) {
     } 
 }
 
+// int main() {
+//     Node* head = nullptr;
+
+//     // Demo: insert, search, delete, then free all nodes.
+//     std::cout << "--- Inserting Elements ---\n";
+//     insertAtTail(head, 10);
+//     insertAtTail(head, 20);
+//     insertAtTail(head, 30);
+//     insertAtTail(head, 5);
+//     // insertAtHead(head,  5); // List should be: 5 -> 10 -> 20 -> 30 -> NULL
+    
+    
+//     printPointerList(head);
+
+//     std::cout << "\n--- Searching Elements ---\n";
+//     std::cout << "Searching for 20: " << (searchNode(head, 20) ? "Found" : "Not Found") << "\n";
+//     std::cout << "Searching for 99: " << (searchNode(head, 99) ? "Found" : "Not Found") << "\n";
+
+//     std::cout << "\n--- Deleting Elements ---\n";
+//     std::cout << "Deleting 20 (middle node):\n";
+//     deleteNode(head, 20);
+//     printPointerList(head);
+
+//     std::cout << "Deleting 10 (head node):\n";
+//     deleteNode(head, 10);
+//     printPointerList(head);
+
+//     // Clean up memory before exiting
+//     freeList(head);
+    
+//     return 0;
+// }
+
 int main() {
     Node* head = nullptr;
+    int choice = 0;
+    int value = 0;
 
-    // Demo: insert, search, delete, then free all nodes.
-    std::cout << "--- Inserting Elements ---\n";
-    insertAtTail(head, 10);
-    insertAtTail(head, 20);
-    insertAtTail(head, 30);
-    insertAtTail(head, 5);
-    // insertAtHead(head,  5); // List should be: 5 -> 10 -> 20 -> 30 -> NULL
-    
-    
-    printPointerList(head);
+    while (true) {
+        std::cout << "\n====================================\n";
+        std::cout << "   LINKED LIST INTERACTIVE SYSTEM   \n";
+        printPointerList(head);
+        std::cout << "====================================\n";
+        std::cout << "1. Insert Node at Tail\n";
+        std::cout << "2. Insert Node at Head\n";
+        std::cout << "3. Search for a Node\n";
+        std::cout << "4. Delete a Node\n";
+        std::cout << "5. Print List\n";
+        std::cout << "6. Exit Program\n";
+        std::cout << "------------------------------------\n";
+        std::cout << "Enter your choice (1-6): ";
+        
+        // Safety check for non-integer inputs
+        if (!(std::cin >> choice)) {
+            std::cout << "Invalid input detected. Shutting down...\n";
+            break;
+        }
 
-    std::cout << "\n--- Searching Elements ---\n";
-    std::cout << "Searching for 20: " << (searchNode(head, 20) ? "Found" : "Not Found") << "\n";
-    std::cout << "Searching for 99: " << (searchNode(head, 99) ? "Found" : "Not Found") << "\n";
+        std::cout << "\n";
 
-    std::cout << "\n--- Deleting Elements ---\n";
-    std::cout << "Deleting 20 (middle node):\n";
-    deleteNode(head, 20);
-    printPointerList(head);
+        switch (choice) {
+            case 1:
+                std::cout << "Enter the integer to insert at the tail: ";
+                std::cin >> value;
+                insertAtTail(head, value);
+                std::cout << ">> Inserted " << value << ".\n";
+                break;
+            
+            case 2:
+                std::cout << "Enter the integer to insert at the head: ";
+                std::cin >> value;
+                insertAtHead(head, value);
+                std::cout << ">> Inserted " << value << ".\n";
+                break;
+            
+            case 3:
+                std::cout << "Enter the integer to search for: ";
+                std::cin >> value;
+                if (searchNode(head, value)) {
+                    std::cout << ">> Found! The value " << value << " is in the list.\n";
+                } else {
+                    std::cout << ">> Not found. The value " << value << " is not in the list.\n";
+                }
+                break;
+            
+            case 4:
+                std::cout << "Enter the integer to delete: ";
+                std::cin >> value;
+                deleteNode(head, value);
+                break;
+            
+            case 6:
+                std::cout << ">> Freeing memory and exiting program. Goodbye!\n";
+                freeList(head);
+                return 0;
+            
+            default:
+                std::cout << ">> Invalid choice. Please select a number between 1 and 6.\n";
+        }
+    }
 
-    std::cout << "Deleting 10 (head node):\n";
-    deleteNode(head, 10);
-    printPointerList(head);
-
-    // Clean up memory before exiting
-    freeList(head);
-    
     return 0;
 }
