@@ -97,7 +97,7 @@ void deleteNode(Node*& head, int val) {
 }
 // 4. MEMORY MANAGEMENT
 // Safely deletes all nodes to prevent memory leaks
-void freeList(Node* head) {
+void freeList(Node*& head) {
     while (head != nullptr) {
         Node* temp = head;
         head = head->next;
@@ -105,18 +105,12 @@ void freeList(Node* head) {
     } 
 }
 
-// int main() {
-//     Node* head = nullptr;
-
-//     // Demo: insert, search, delete, then free all nodes.
+   // Demo: insert, search, delete, then free all nodes.
 //     std::cout << "--- Inserting Elements ---\n";
 //     insertAtTail(head, 10);
 //     insertAtTail(head, 20);
 //     insertAtTail(head, 30);
 //     insertAtTail(head, 5);
-//     // insertAtHead(head,  5); // List should be: 5 -> 10 -> 20 -> 30 -> NULL
-    
-    
 //     printPointerList(head);
 
 //     std::cout << "\n--- Searching Elements ---\n";
@@ -134,9 +128,7 @@ void freeList(Node* head) {
 
 //     // Clean up memory before exiting
 //     freeList(head);
-    
-//     return 0;
-// }
+
 
 int main() {
     Node* head = nullptr;
@@ -152,8 +144,7 @@ int main() {
         std::cout << "2. Insert Node at Head\n";
         std::cout << "3. Search for a Node\n";
         std::cout << "4. Delete a Node\n";
-        std::cout << "5. Print List\n";
-        std::cout << "6. Exit Program\n";
+        std::cout << "5. Exit Program\n";
         std::cout << "------------------------------------\n";
         std::cout << "Enter your choice (1-6): ";
         

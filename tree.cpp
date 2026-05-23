@@ -20,7 +20,7 @@ struct TreeNode {
 
 // 1. INSERT
 // Recursive BST insert — smaller goes left, greater-or-equal goes right.
-void insert(TreeNode* root, int val) {
+void insert(TreeNode*& root, int val) {
     if (root == nullptr) {
         root = new TreeNode(val);
         return;
@@ -83,7 +83,7 @@ void search(TreeNode* root, int val) {
 
 // 4. MEMORY MANAGEMENT
 // Post-order delete: free children before the current node.
-void deleteTree(TreeNode* root) {
+void deleteTree(TreeNode*& root) {
     if (root == nullptr) return;
     deleteTree(root->left);
     deleteTree(root->right);
