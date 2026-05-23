@@ -33,20 +33,28 @@ void insert(TreeNode*& root, int val) {
 }
 
 // 2. TRAVERSALS
-// In-order: left, root, right — prints BST values in sorted order.
+
+// Preorder DFS: visit root before children. PREORDER (Root, Left, Right) ---
+void preorder(TreeNode* root) {
+    if (root == nullptr) return;
+    std::cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+//postorder:  (Left, Right, Root) ---
+void postorder(TreeNode* root) {
+    if (root == nullptr) return;
+    postorder(root->left);
+    postorder(root->right);
+    std::cout << root->data << " ";
+}
+// Inorder: left, root, right — prints BST values in sorted order.
 void printInOrder(TreeNode* root) {
     if (root == nullptr) return;
     printInOrder(root->left);
     std::cout << root->data << " ";
     printInOrder(root->right);
-}
-
-// Pre-order DFS: visit root before children.
-void dfs(TreeNode* root) {
-    if (root == nullptr) return;
-    std::cout << root->data << " ";
-    dfs(root->left);
-    dfs(root->right);
 }
 
 // Level-order BFS: process nodes layer by layer using a queue.
@@ -90,10 +98,42 @@ void deleteTree(TreeNode*& root) {
     delete root;
 }
 
+// --- THE VISUALIZER FUNCTION ---
+// prefix: Keeps track of the spacing and vertical lines from parent nodes
+// isLeft: Tells us whether to draw a branching line (├──) or an ending line (└──)
+// isRoot: A flag just to format the very first node nicely
+void visualizeTree(TreeNode* node, std::string prefix = "", bool isLeft = false, bool isRoot = true) {
+    // Base case: if the tree is empty, do nothing
+    if (node == nullptr) {
+        return;
+    }
+
+    // 1. Print the current node
+    if (isRoot) {
+        std::cout << node->data << "\n";
+    } else {
+        // If it's a left child, it gets a T-intersection. If it's a right child, it gets an L-corner.
+        std::cout << prefix << (isLeft ? "├── " : "└── ") << node->data << "\n";
+    }
+
+    // 2. Calculate the prefix for the children
+    // If the current node was a left child, we need to extend the vertical line downwards ("│   ")
+    // If it was a right child, there are no more siblings below it, so we just use empty space ("    ")
+    std::string nextPrefix = prefix + (isRoot ? "" : (isLeft ? "│   " : "    "));
+
+    // 3. Recursive calls for children
+    // We only make the calls if at least one child exists to prevent drawing empty lines
+    if (node->left != nullptr || node->right != nullptr) {
+        visualizeTree(node->left, nextPrefix, true, false);
+        visualizeTree(node->right, nextPrefix, false, false);
+    }
+}
+
 int main() {
     TreeNode* root = nullptr;
 
     // Build BST: 10, 5, 15, 3, 7, 12, 20
+    std::cout << "Build BST: 10, 5, 15, 3, 7, 12, 20 " << std::endl;
     insert(root, 10);
     insert(root, 5);
     insert(root, 15);
@@ -101,13 +141,19 @@ int main() {
     insert(root, 7);
     insert(root, 12);
     insert(root, 20);
+    visualizeTree(root);
+
+    std::cout << "pre-order (DFS): ";
+    preorder(root);
+    std::cout << std::endl;
+
+    std::cout << "Post-order: ";
+    postorder(root);
+    std::cout << std::endl;
+
 
     std::cout << "In-order: ";
     printInOrder(root);
-    std::cout << std::endl;
-
-    std::cout << "DFS (pre-order): ";
-    dfs(root);
     std::cout << std::endl;
 
     std::cout << "BFS (level-order): ";
