@@ -17,5 +17,14 @@ void printEmployee(Employee employee) {
 int main() {
     Employee employee = {"Ali Khan", 30, 50000.0};
     printEmployee(employee);
+
+    std::cout << "\n\nPointer Example:" << std::endl;
+    // Pointer to the employee
+    Employee *employeePtr = &employee;
+    employeePtr->name = "Aslam Khan";
+    employeePtr->age = 60;
+    employeePtr->salary = 250000.0;
+    printEmployee(*employeePtr);
+
     return 0;
 }
