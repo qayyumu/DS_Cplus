@@ -1,4 +1,4 @@
-// g++ -std=c++17 -o graph graph.cpp && ./graph
+// g++ -std=c++17 graph.cpp && ./a.out
 // Code by U. on 21/05/2026
 //
 // Undirected graph — manual adjacency lists (GraphNode list + Edge list per node).

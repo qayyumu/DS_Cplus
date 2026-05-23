@@ -1,4 +1,4 @@
-// g++ -std=c++17 -o tree tree.cpp && ./tree
+// g++ -std=c++17 tree.cpp && ./a.out
 // Code by U. on 20/05/2026
 //
 // Binary search tree — raw TreeNode pointers, std::queue for BFS only.

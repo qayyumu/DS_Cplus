@@ -1,4 +1,4 @@
-// g++ -std=c++17 -o linkedlist linkedlist.cpp && ./linkedlist
+// g++ -std=c++17 linkedlist.cpp && ./a.out
 // Code by U. on 20/05/2026
 //
 // Singly linked list — raw Node pointers, manual memory management.

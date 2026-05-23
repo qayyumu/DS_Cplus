@@ -1,11 +1,7 @@
+
 AGENTS.md
-graph
-fullgraph
-linkedlist
-tree
 #  ignore directories
 */
 # Do not ignore files that have an extension
 !*.cpp
-
-
+*.out
