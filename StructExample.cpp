@@ -19,12 +19,6 @@ int main() {
     printEmployee(employee);
 
     std::cout << "\n\nPointer Example:" << std::endl;
-    // Pointer to the employee
-    Employee *employeePtr = &employee;
-    employeePtr->name = "Aslam Khan";
-    employeePtr->age = 60;
-    employeePtr->salary = 250000.0;
-    printEmployee(*employeePtr);
 
     return 0;
 }

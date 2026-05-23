@@ -6,7 +6,9 @@ A C++ refresher repo for core data structures with vector/queue/linkedlist/graph
 
 | File | Topic | Style |
 |------|-------|-------|
-| `StructExample.cpp` | Struct + pointer | Plain struct, free function |
+| `PointerExample.cpp` | Pointer examples | Pointer to pointer, pointer assignment
+| `StructExample.cpp` | Struct defination | Plain struct, free function |
+| `PointerStructExample.cpp` |structure pointer example | pointer assignment  
 | `ClassExample.cpp` | Class | Constructor, public/private, methods |
 | `VectorExample.cpp` | `std::vector<int>` | Push, index, pop_back, clear |
 | `VectorExample2.cpp` | `std::vector<Employee>` | Custom struct in a vector |
