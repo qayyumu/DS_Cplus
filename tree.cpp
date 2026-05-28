@@ -58,6 +58,14 @@ void printInOrder(TreeNode* root) {
 }
 
 // Level-order BFS: process nodes layer by layer using a queue.
+// Step,      Queue ,             Action,Output
+// Initial,   [1],                Push root,-
+// Iter 1,   "[2, 3]",            "Pop 1, push its children 2 and 3",1
+// Iter 2,   "[3, 4, 5]",         "Pop 2, push its children 4 and 5",1 2
+// Iter 3,   "[4, 5]",            "Pop 3, it has no children",1 2 3
+// Iter 4,    [5],                "Pop 4, it has no children",1 2 3 4
+// Iter 5,    [],                 "Pop 5, queue is now empty",1 2 3 4 5
+
 void bfs(TreeNode* root) {
     if (root == nullptr) return;
 
